@@ -1,88 +1,78 @@
 <script setup>
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Link, useForm, usePage } from '@inertiajs/vue3';
+import InputError from "@/Components/InputError.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import TextInput from "@/Components/TextInput.vue";
+import { Link, useForm, usePage } from "@inertiajs/vue3";
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 
-defineProps({
-    mustVerifyEmail: {
-        type: Boolean,
-    },
-    status: {
-        type: String,
+const props = defineProps({
+    profile: {
+        type: Object,
     },
 });
 
 const user = usePage().props.auth.user;
 
 const form = useForm({
-    name: user.name,
-    email: user.email,
+    phone: props.profile.phone ?? "",
+    birthday: props.profile.birthday ?? "",
 });
+
+const format = (date) => {
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+};
 </script>
 
 <template>
     <section>
         <header>
-            <h2 class="text-lg font-medium text-gray-900">Profile Information</h2>
+            <h2 class="text-lg font-medium text-gray-900">
+                Profile Information
+            </h2>
 
             <p class="mt-1 text-sm text-gray-600">
                 Update your account's profile information and email address.
             </p>
         </header>
 
-        <form @submit.prevent="form.patch(route('profile.update'))" class="mt-6 space-y-6">
-            <div>
-                <InputLabel for="name" value="Name" />
+        <form
+            @submit.prevent="form.patch(route('profile.update'))"
+            class="mt-6 space-y-6"
+        >
+            <div class="mt-4">
+                <InputLabel for="phone" :value="__('auth.phone')" />
 
                 <TextInput
-                    id="name"
+                    id="phone"
                     type="text"
                     class="mt-1 block w-full"
-                    v-model="form.name"
+                    v-model="form.phone"
                     required
-                    autofocus
-                    autocomplete="name"
+                    autocomplete="phone"
                 />
 
-                <InputError class="mt-2" :message="form.errors.name" />
+                <InputError class="mt-2" :message="form.errors.phone" />
             </div>
 
-            <div>
-                <InputLabel for="email" value="Email" />
+            <div class="mt-4">
+                <InputLabel for="birthday" :value="__('auth.birthday')" />
 
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
+                <VueDatePicker
+                    v-model="form.birthday"
+                    auto-apply
+                    :enable-time-picker="false"
+                    :format="format"
+                    :max-date="new Date()"
                     required
-                    autocomplete="username"
-                />
+                ></VueDatePicker>
 
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
-
-            <div v-if="mustVerifyEmail && user.email_verified_at === null">
-                <p class="text-sm mt-2 text-gray-800">
-                    Your email address is unverified.
-                    <Link
-                        :href="route('verification.send')"
-                        method="post"
-                        as="button"
-                        class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                        Click here to re-send the verification email.
-                    </Link>
-                </p>
-
-                <div
-                    v-show="status === 'verification-link-sent'"
-                    class="mt-2 font-medium text-sm text-green-600"
-                >
-                    A new verification link has been sent to your email address.
-                </div>
+                <InputError class="mt-2" :message="form.errors.birthday" />
             </div>
 
             <div class="flex items-center gap-4">
@@ -94,7 +84,12 @@ const form = useForm({
                     leave-active-class="transition ease-in-out"
                     leave-to-class="opacity-0"
                 >
-                    <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Saved.</p>
+                    <p
+                        v-if="form.recentlySuccessful"
+                        class="text-sm text-gray-600"
+                    >
+                        Saved.
+                    </p>
                 </Transition>
             </div>
         </form>

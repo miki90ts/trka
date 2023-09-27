@@ -5,23 +5,11 @@ import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
-import VueDatePicker from "@vuepic/vue-datepicker";
-import "@vuepic/vue-datepicker/dist/main.css";
-
-const format = (date) => {
-    const day = date.getDate().toString().padStart(2, "0");
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const year = date.getFullYear();
-
-    return `${day}/${month}/${year}`;
-};
 
 const form = useForm({
     first_name: "",
     last_name: "",
     email: "",
-    phone: "",
-    birthday: "",
     password: "",
     password_confirmation: "",
 });
@@ -82,36 +70,6 @@ const submit = () => {
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="phone" :value="__('auth.phone')" />
-
-                <TextInput
-                    id="phone"
-                    type="text"
-                    class="mt-1 block w-full"
-                    v-model="form.phone"
-                    required
-                    autocomplete="phone"
-                />
-
-                <InputError class="mt-2" :message="form.errors.phone" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="birthday" :value="__('auth.birthday')" />
-
-                <VueDatePicker
-                    v-model="form.birthday"
-                    auto-apply
-                    :enable-time-picker="false"
-                    :format="format"
-                    :max-date="new Date()"
-                    required
-                ></VueDatePicker>
-
-                <InputError class="mt-2" :message="form.errors.birthday" />
             </div>
 
             <div class="mt-4">
