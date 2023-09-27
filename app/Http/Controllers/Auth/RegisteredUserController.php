@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Carbon\Carbon;
 use App\Models\User;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -36,8 +35,6 @@ class RegisteredUserController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:' . User::class,
-            'phone' => 'required|string|max:255',
-            'birthday' => 'required|date',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -45,8 +42,6 @@ class RegisteredUserController extends Controller
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
-            'phone' => $request->phone,
-            'birthday' => Carbon::parse($request->birthday)->format('Y-m-d'),
             'password' => Hash::make($request->password),
         ]);
 

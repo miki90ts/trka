@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
@@ -34,6 +35,12 @@ class ProfileController extends Controller
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
+
+        //    'phone' => 'required|string|max:255',
+        //     'birthday' => 'required|date',
+
+        //        'phone' => $request->phone,
+        //     'birthday' => Carbon::parse($request->birthday)->format('Y-m-d'),
 
         $request->user()->save();
 
