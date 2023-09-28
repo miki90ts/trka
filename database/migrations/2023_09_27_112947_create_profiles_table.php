@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('city')->nullable();
             $table->string('postal_code')->nullable();
-            $table->string('country');
+            $table->foreignId('country_id')->constrained()->restrictOnDelete()->restrictOnUpdate();
             $table->string('club')->nullable();
             $table->foreignId('shirt_size_id')->constrained()->restrictOnDelete()->restrictOnUpdate();
             $table->string('emergency_phone');

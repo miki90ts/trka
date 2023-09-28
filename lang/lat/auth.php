@@ -23,4 +23,12 @@ return [
     'birthday' => 'Datum rođenja',
     'password' => 'Lozinka',
     'confirm_password' => 'Ponovite lozinku',
+    'country' => 'Zemlja',
+    'address' => 'Adresa',
+    'city' => 'Grad',
+    'postal_code' => 'Poštanski broj',
+    'gender' => 'Pol',
+    'emergency_phone' => 'Kontakt u slučaju nužde',
+    'club' => 'Klub/Štafetni tim',
+    'shirt_size' => 'Veličina majice',
 ];

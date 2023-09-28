@@ -11,13 +11,26 @@ class Profile extends Model
     use HasFactory;
 
     protected $fillable = [
-        'phone',
+        'user_id',
+        'gender',
         'birthday',
+        'city',
+        'postal_code',
+        'country_id',
+        'club',
+        'shirt_size_id',
+        'emergency_phone',
+        'address',
+        'phone',
     ];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-      
+
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
 }

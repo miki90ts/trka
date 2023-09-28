@@ -13,15 +13,24 @@ defineProps({
     status: {
         type: String,
     },
-    profile: {
+    user: {
         type: Object,
+    },
+    countries: {
+        type: Array,
+    },
+    genders: {
+        type: Array,
+    },
+    shirtSizes: {
+        type: Array,
     },
 });
 </script>
 
 <template>
     <Head title="Profile" />
-    {{ profile }}
+
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -41,7 +50,10 @@ defineProps({
 
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <UpdateProfileInformationForm
-                        :profile="profile"
+                        :profile="user.profile"
+                        :countries="countries"
+                        :genders="genders"
+                        :shirtSizes="shirtSizes"
                         class="max-w-xl"
                     />
                 </div>
