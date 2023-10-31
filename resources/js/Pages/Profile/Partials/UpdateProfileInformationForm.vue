@@ -24,16 +24,16 @@ const props = defineProps({
 });
 
 const form = useForm({
-    gender: props.profile?.birthday ?? "",
-    birthday: props.profile?.birthday ?? "",
-    phone: props.profile?.phone ?? "",
-    address: props.profile?.address ?? "",
-    city: props.profile?.city ?? "",
-    postal_code: props.profile?.postal_code ?? "",
-    country_id: props.profile?.country_id ?? "162",
-    club: props.profile?.club ?? "",
-    shirt_size_id: props.profile?.shirt_size_id ?? "",
-    emergency_phone: props.profile?.emergency_phone ?? "",
+    gender: props.profile.gender ?? "",
+    birthday: props.profile.birthday ?? "",
+    phone: props.profile.phone ?? "",
+    address: props.profile.address ?? "",
+    city: props.profile.city ?? "",
+    postal_code: props.profile.postal_code ?? "",
+    country_id: props.profile.country_id ?? "162",
+    club: props.profile.club ?? "",
+    shirt_size_id: props.profile.shirt_size_id ?? "",
+    emergency_phone: props.profile.emergency_phone ?? "",
 });
 
 const format = (date) => {

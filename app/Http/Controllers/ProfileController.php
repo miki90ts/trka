@@ -54,26 +54,18 @@ class ProfileController extends Controller
      */
     public function updateProfile(UpdateProfileRequest $request): RedirectResponse
     {
-        //dd($request);
-        //        'phone' => $request->phone,
-        //     'birthday' => Carbon::parse($request->birthday)->format('Y-m-d'),
-
-        Profile::updateOrCreate(
-            ['user_id' => $request->user()->id],
-            [
-                'user_id' => $request->user()->id,
-                'gender' => $request->input('gender'),
-                'birthday' => Carbon::parse($request->birthday)->format('Y-m-d'),
-                'city' => $request->input('city'),
-                'postal_code' => $request->input('postal_code'),
-                'country_id' => $request->input('country_id'),
-                'club' => $request->input('club'),
-                'shirt_size_id' => $request->input('shirt_size_id'),
-                'emergency_phone' => $request->input('emergency_phone'),
-                'address' => $request->input('address'),
-                'phone' => $request->input('phone'),
-            ]
-        );
+        $request->user()->profile()->update([
+            'gender' => $request->input('gender'),
+            'birthday' => Carbon::parse($request->birthday)->format('Y-m-d'),
+            'city' => $request->input('city'),
+            'postal_code' => $request->input('postal_code'),
+            'country_id' => $request->input('country_id'),
+            'club' => $request->input('club'),
+            'shirt_size_id' => $request->input('shirt_size_id'),
+            'emergency_phone' => $request->input('emergency_phone'),
+            'address' => $request->input('address'),
+            'phone' => $request->input('phone'),
+        ]);
 
         return Redirect::route('profile.edit');
     }

@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('postal_code')->nullable();
             $table->foreignId('country_id')->constrained()->restrictOnDelete()->restrictOnUpdate();
             $table->string('club')->nullable();
-            $table->foreignId('shirt_size_id')->constrained()->restrictOnDelete()->restrictOnUpdate();
-            $table->string('emergency_phone');
+            $table->foreignId('shirt_size_id')->nullable()->constrained()->restrictOnDelete()->restrictOnUpdate();
+            $table->string('emergency_phone')->nullable();
             $table->timestamps();
         });
     }
